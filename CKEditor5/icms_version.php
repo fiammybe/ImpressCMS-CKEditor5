@@ -11,10 +11,10 @@
  */
 
 $editorversion = array(
-		'name' => "CKEditor5",
-		'version' => "5",
-		'license' => "MIT see LICENSE",
-		'dirname' => "CKEditor5",
+		'name' => "CKEditor 5",
+		'version' => "40.12.0",
+		'license' => "GPL see LICENSE",
+		'dirname' => "CKeditor5",
 		'class' => "icmsFormCKEditor5",
-		'file' => "formCKEditor5.php",
+		'file' => "formCkeditor5.php",
 	);

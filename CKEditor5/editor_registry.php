@@ -1,9 +1,12 @@
 <?php
 /**
- * CKeditor 	adapter for ICMS
+ * CKEditor 5 adapter for ImpressCMS
  *
- * @license	http://www.fsf.org/copyleft/gpl.html GNU public license
- * @version	$Id: editor_registry.php 4709 2008-09-06 21:07:58Z skenow $
+ * @copyright	The ImpressCMS Project http://www.impresscms.org/
+ * @license	http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License (GPL)
+ * @package	editors
+ * @since	2.0
+ * @author	Modified by: Steve K <skenow@impresscms.org>
  */
 global $icmsConfig;
 
@@ -17,9 +20,10 @@ if (!@include_once $root_path . "/language/" . $icmsConfig['language'] . ".php")
 }
 
 return $config = array(
-		"name"	=>	"CKeditor",
-		"class"	=>	"icmsFormCKEditor",
-		"file"	=>	$root_path . "/formCkeditor.php",
-		"title"	=>	_ICMS_EDITOR_CKEDITOR,
-		"order"	=>	3
+		"name"	=>	"CKEditor 5",
+		"class"	=>	"icmsFormCKEditor5",
+		"file"	=>	$root_path . "/formCkeditor5.php",
+		"title"	=>	_ICMS_EDITOR_CKEDITOR5,
+		"order"	=>	3,
+		"nohtml"	=>	0
 	);
