@@ -93,7 +93,7 @@ class CKEditor5
 	 *
 	 * @param $basePath (string) URL to the %CKEditor installation directory (optional).
 	 */
-	function __construct($basePath = null)
+	public function __construct($basePath = null)
 	{
 		if (!empty($basePath)) {
 			$this->basePath = $basePath;
@@ -146,10 +146,12 @@ class CKEditor5
 
 		$js = $this->returnGlobalEvents();
 
-		if (!empty($_config))
-			$js .= "CKEDITOR.replace('" . $name . "', " . $this->jsEncode($_config) . ");";
-		else
-			$js .= "CKEDITOR.replace('" . $name . "');";
+		if (!empty($_config)) {
+            $js .= "CKEDITOR.replace('" . $name . "', " . $this->jsEncode($_config) . ");";
+        }
+		else {
+            $js .= "CKEDITOR.replace('" . $name . "');";
+        }
 
 		$out .= $this->script($js);
 
@@ -508,9 +510,7 @@ class CKEditor5
 
 		$documentRoot = substr($realPath, 0, strlen($realPath) - strlen($selfPath));
 		$fileUrl = substr($file, strlen($documentRoot));
-		$ckeditorUrl = str_replace("ckeditor5.php", "", $fileUrl);
-
-		return $ckeditorUrl;
+        return str_replace("ckeditor5.php", "", $fileUrl);
 	}
 
 	/**
@@ -545,16 +545,18 @@ class CKEditor5
 			$temp = array();
 
 			foreach ($val as $k => $v) {
-				$temp[] = $this->jsEncode("{$k}") . ':' . $this->jsEncode($v);
+				$temp[] = $this->jsEncode("$k") . ':' . $this->jsEncode($v);
 			}
 
 			return '{' . implode(',', $temp) . '}';
 		}
 		// String otherwise
-		if (strpos($val, '@@') === 0)
-			return substr($val, 2);
-		if (strtoupper(substr($val, 0, 9)) == 'CKEDITOR.')
-			return $val;
+		if (strpos($val, '@@') === 0) {
+            return substr($val, 2);
+        }
+		if (stripos($val, 'CKEDITOR.') === 0) {
+            return $val;
+        }
 
 		return '"' . str_replace(array("\\", "/", "\n", "\t", "\r", "\x08", "\x0c", '"'), array('\\\\', '\\/', '\\n', '\\t', '\\r', '\\b', '\\f', '\"'), $val) . '"';
 	}
