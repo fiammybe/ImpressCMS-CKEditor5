@@ -18,7 +18,7 @@ This is an integration of CKEditor 5 for ImpressCMS. CKEditor 5 is a modern Java
 
 ## Installation
 
-1. The CKEditor 5 integration is included in ImpressCMS.
+1. Place the CKEditor5 folder below the 'editors' folder of your ImpressCMS installation.
 2. To enable it, go to System Admin > Preferences > General Settings and select "CKEditor 5" from the "Default Editor" dropdown.
 
 ## Configuration
@@ -55,4 +55,4 @@ CKEditor 5 is a complete rewrite of CKEditor 4 with a different architecture:
 ## Credits
 
 - CKEditor 5 is developed by CKSource - https://ckeditor.com/
-- This integration was created for ImpressCMS by the ImpressCMS Team
+- This integration was created for ImpressCMS
