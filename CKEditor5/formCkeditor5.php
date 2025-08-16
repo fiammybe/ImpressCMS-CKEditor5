@@ -6,7 +6,7 @@
  * @license		http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License (GPL)
  * @package		editors
  * @since		2.0
- * @author		Modified by: Steve K <skenow@impresscms.org>
+ * @author		Adapted from CKEditor 4 by: david.j@impresscms.org
  */
 defined("ICMS_ROOT_PATH") || die("Root path not defined");
 
