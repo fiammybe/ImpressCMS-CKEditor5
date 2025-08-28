@@ -96,7 +96,7 @@ class icmsFormCKEditor5 extends icms_form_elements_Textarea {
 		$toolbarConfig = array(
 			'Basic' => '["heading", "bold", "italic", "link", "bulletedList", "numberedList", "undo", "redo"]',
 			'Normal' => '["heading", "bold", "italic", "link", "bulletedList", "numberedList", "blockQuote", "insertTable", "undo", "redo"]',
-			'Full' => '["heading", "bold", "italic", "underline", "strikethrough", "link", "bulletedList", "numberedList", "blockQuote", "insertTable", "mediaEmbed", "undo", "redo", "alignment", "fontColor", "fontBackgroundColor", "findAndReplace", "sourceEditing"]'
+			'Full' => '["heading", "bold", "italic", "underline", "strikethrough", "link", "bulletedList", "numberedList", "blockQuote", "insertTable", "mediaEmbed", "undo", "redo", "alignment", "fontColor[...]
 		);
 
 		// Add CKEditor 5 from CDN - using Classic Editor build (latest stable version)
@@ -104,6 +104,9 @@ class icmsFormCKEditor5 extends icms_form_elements_Textarea {
 
 		// Add the custom initialization script
 		$ret .= $xoTheme->addScript(ICMS_URL . '/editors/CKeditor5/js/ckeditor5-init.js', array('type' => 'text/javascript'), '');
+
+		// --- NEW: include the PasteUploadAdapter script so pasted images upload automatically ---
+		$ret .= $xoTheme->addScript(ICMS_URL . '/editors/CKeditor5/js/pasteUploadAdapter.js', array('type' => 'text/javascript'), '');
 
 		// Get the actual ID of the textarea
 		$textareaId = $this->getName();
@@ -122,6 +125,29 @@ class icmsFormCKEditor5 extends icms_form_elements_Textarea {
 					imageBrowserUrl: "' . ICMS_URL . '/editors/CKeditor5/imagebrowser.php",
 					debug: ' . ($debugMode ? 'true' : 'false') . '
 				});
+			});');
+
+		// --- NEW: register the PasteUploadAdapter on the editor instance (overrides default adapter) ---
+		$ret .= $xoTheme->addScript('', array('type' => 'text/javascript'),
+			'document.addEventListener("DOMContentLoaded", function() {
+				// Try to register the adapter once the editor is available.
+				// ckeditor5-init.js sets window.editor = editor when it initializes.
+				function registerPasteAdapter() {
+					if (window.editor && window.PasteUploadAdapter) {
+						try {
+							window.editor.plugins.get("FileRepository").createUploadAdapter = function(loader) {
+								return new window.PasteUploadAdapter(loader);
+							};
+							if (' . ($debugMode ? 'true' : 'false') . ') console.log("PasteUploadAdapter registered for CKEditor 5.");
+						} catch (e) {
+							if (' . ($debugMode ? 'true' : 'false') . ') console.error("Failed to register PasteUploadAdapter:", e);
+						}
+					} else {
+						// Keep trying for a short time in case the editor initializes slightly later.
+						setTimeout(registerPasteAdapter, 200);
+					}
+				}
+				registerPasteAdapter();
 			});');
 
 		// Render the textarea
