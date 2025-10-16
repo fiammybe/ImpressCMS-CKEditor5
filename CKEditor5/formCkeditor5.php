@@ -102,6 +102,9 @@ class icmsFormCKEditor5 extends icms_form_elements_Textarea {
 		// Add CKEditor 5 from CDN - using Classic Editor build (latest stable version)
 		$ret = $xoTheme->addScript("https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js", array('type' => 'text/javascript'), '');
 
+			// Internal Link plugin script (adds a toolbar button and dialog)
+			$ret .= $xoTheme->addScript(ICMS_URL . '/editors/CKEditor5/js/internallink-plugin.js', array('type' => 'text/javascript'), '');
+
 		// Add the custom initialization script
 		$ret .= $xoTheme->addScript(ICMS_URL . '/editors/CKeditor5/js/ckeditor5-init.js', array('type' => 'text/javascript'), '');
 

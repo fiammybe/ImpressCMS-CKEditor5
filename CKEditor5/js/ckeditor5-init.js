@@ -1,6 +1,6 @@
 /**
  * CKEditor 5 initialization script for ImpressCMS
- * 
+ *
  * This file handles the initialization of CKEditor 5 instances
  * with robust error handling and debugging capabilities.
  */
@@ -106,6 +106,13 @@ function initCKEditor5(options) {
         ClassicEditor
             .create(textareaElement, editorConfig)
             .then(editor => {
+                try {
+                    if (window.ICMS_CK5_InstallInternalLinkButton) {
+                        window.ICMS_CK5_InstallInternalLinkButton(editor);
+                    }
+                } catch (e) {
+                    debug('Internal Link button install failed', e);
+                }
                 debug('CKEditor 5 initialized successfully');
 
                 // Save data back to textarea on form submit

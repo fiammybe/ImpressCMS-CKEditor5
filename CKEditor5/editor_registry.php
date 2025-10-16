@@ -23,7 +23,7 @@ return $config = array(
 		"name"	=>	"CKEditor 5",
 		"class"	=>	"icmsFormCKEditor5",
 		"file"	=>	$root_path . "/formCkeditor5.php",
-		"title"	=>	_ICMS_EDITOR_CKEDITOR5,
+		"title"	=>	"CKEditor 5",
 		"order"	=>	3,
 		"nohtml"	=>	0
 	);
